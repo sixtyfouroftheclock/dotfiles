@@ -24,4 +24,6 @@ $ ./dotfiles/install.zsh
 
 ![Welcome screen in installer installer.zsh](https://i.imgur.com/EXECTT1.png)
 
-Press **ENTER** if it displays a welcome message, then it installs by itself. If there's a `.zshrc` file in your `~/`, it'll ask if you wish delete it.
+Press **ENTER** if it displays a welcome message, then it installs by itself. If there's a `.zshrc` file in your `~/`, it'll ask if you wish backup it or not.
+
+Now, after install it, restart the shell; or use `source ~/.zshrc` to apply the new settings.
