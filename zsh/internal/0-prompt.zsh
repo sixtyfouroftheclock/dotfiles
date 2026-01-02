@@ -8,10 +8,8 @@ precmd()
     formatted_branch=""
 
     if git rev-parse --is-inside-work-tree &>/dev/null; then
-        local b
-        b=$(git symbolic-ref --quiet --short HEAD 2>/dev/null) || return
-        branch="$b"
-        formatted_branch="%F{208}git_branch:$b%f"
+        branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null) || return
+        formatted_branch="%F{208}git_branch:$branch%f"
     fi
 }
 
