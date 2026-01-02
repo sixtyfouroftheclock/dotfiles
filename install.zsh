@@ -83,7 +83,7 @@ mv()
 separate_lines()
 {
     print "
-──────────────────────────────────────────────────────────────────────────────────────────────────
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
 "
 }
 
@@ -95,7 +95,7 @@ delete_files()
 
     print -Pn "%B%F{red}Remove %F{green}$@%f%b? y/n -> "
     read -r confirmation
-    [[ $confirmation != y ]] && { print "aborting..."; exit 2 }
+    [[ $confirmation != y ]] && { print "Aborting..."; exit 2 }
 
     rm -r -- "$@"
 }
@@ -104,7 +104,12 @@ delete_files()
 
 if [[ -e "$ZSHRC_FILE_EXPANDED" ]]; then
     print -P "A configuration file already exists in %F{green}%B$ZSHRC_FILE_NOT_EXPANDED%f%b."
-    delete_files "$ZSHRC_FILE_EXPANDED"
+    print -Pn "Are you sure you wanna continue? The current file is going to be %F{blue}%Bmoved%b%f to %F{green}%B${ZSHRC_FILE_NOT_EXPANDED}.bak%f%b. (y/n) "
+    read -r confirmation
+    [[ $confirmation != y ]] && { print "Aborting..."; exit 2 }
+    
+    rm "${ZSHRC_FILE_EXPANDED}.bak"
+    mv "${ZSHRC_FILE_EXPANDED}" "${ZSHRC_FILE_EXPANDED}.bak"
 fi
 
 if [[ -f "$ZSHD_DIRECTORY_EXPANDED" ]]; then
@@ -122,8 +127,8 @@ cp -R "$ZSH_SOURCE_DIRECTORY"/. "$ZSHD_DIRECTORY_EXPANDED"/
 
 print -P "Creating file %B%F{green}$ZSHRC_FILE_NOT_EXPANDED%f%b..."
 
-print -P "# Slow down!
-# I think it's better for you to start using ${ZSHD_DIRECTORY_NOT_EXPANDED} to customize your zsh.
+print -P "# Hold on!
+# I think it's better for you to use ${ZSHD_DIRECTORY_NOT_EXPANDED} to customize your zsh.
 
 SCRIPT_DIRECTORY=$(dirname "$0")
 
@@ -143,4 +148,4 @@ unset SCRIPT_DIRECTORY
 separate_lines
 
 print -P "Done. To customize your ZSH, use %B%F{green}${ZSHD_DIRECTORY_NOT_EXPANDED}%b%f!"
-print -P "But before, you may need to reload this shell or source into %B%F{green}$ZSHRC_FILE_NOT_EXPANDED%b%f using %F{243}source $ZSHRC_FILE_NOT_EXPANDED%f."
+print -P "But before, you may need to apply settings restarting this shell or sourcing into %B%F{green}$ZSHRC_FILE_NOT_EXPANDED%b%f using %F{243}source $ZSHRC_FILE_NOT_EXPANDED%f."
