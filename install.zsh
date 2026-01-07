@@ -128,21 +128,13 @@ cp -R "$ZSH_SOURCE_DIRECTORY"/. "$ZSHD_DIRECTORY_EXPANDED"/
 print -P "Creating file %B%F{green}$ZSHRC_FILE_NOT_EXPANDED%f%b..."
 
 print -P "# Hold on!
-# I think it's better for you to use ${ZSHD_DIRECTORY_NOT_EXPANDED} to customize your zsh.
-
-SCRIPT_DIRECTORY=$(dirname "$0")
+# I think it's better for you to use $HOME/.zsh.d to customize your zsh.
 
 setopt EXTENDED_GLOB
 
-for file in ${ZSHD_DIRECTORY_NOT_EXPANDED}/internal/**/*.zsh(N); do
-    source \"\$file\"
+for file in ~/.zsh.d/internal/**/*.zsh(N) ~/.zsh.d/**/*.zsh(N:^*/internal/*); do
+    source "$file"
 done
-
-for file in ${ZSHD_DIRECTORY_NOT_EXPANDED}/**/^internal/**/*.zsh(N); do
-    source \"\$file\"
-done
-
-unset SCRIPT_DIRECTORY
 " > "$ZSHRC_FILE_EXPANDED"
 
 separate_lines
