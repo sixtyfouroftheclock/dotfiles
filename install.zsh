@@ -133,7 +133,7 @@ print -P "# Hold on!
 setopt EXTENDED_GLOB
 
 for file in ~/.zsh.d/internal/**/*.zsh(N) ~/.zsh.d/**/*.zsh(N:^*/internal/*); do
-    source \"$file\"
+    source \"\$file\"
 done
 " > "$ZSHRC_FILE_EXPANDED"
 
